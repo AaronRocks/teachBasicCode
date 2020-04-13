@@ -1,8 +1,6 @@
 const handleLogin = (e) =>{
     e.preventDefault();
 
-    $("#domoMessage").animate({width:'hide'}, 350);
-
     if($("#user").val() == '' || $("#pass").val == ''){
         return false;
     }
