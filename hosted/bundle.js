@@ -1,5 +1,62 @@
 "use strict";
 
+var handleDomo = function handleDomo(e) {
+  e.preventDefault();
+
+  if ($("#domoName").val() == '' || $("#domoAge").val() == '') {
+    handleError("All fields are required");
+    return false;
+  }
+
+  sendAjax('POST', $("#levelForm").attr('action'), $("#levelForm").serialize(), function () {
+    loadDomosFromServer();
+  });
+  return false;
+};
+
+var levelForm = function levelForm(props) {
+  return (/*#__PURE__*/React.createElement("form", {
+      id: "levelForm",
+      onSubmit: handleDomo,
+      action: "/main",
+      method: "POST",
+      className: "levelForm"
+    }, /*#__PURE__*/React.createElement("label", {
+      htmlFor: "name"
+    }, "Name: "), /*#__PURE__*/React.createElement("input", {
+      id: "characterName",
+      type: "text",
+      name: "name",
+      placeholder: "Character Name"
+    }), /*#__PURE__*/React.createElement("input", {
+      type: "hidden",
+      name: "_csrf",
+      value: props.csrf
+    }), /*#__PURE__*/React.createElement("input", {
+      className: "makeCharSubmit",
+      type: "submit",
+      value: "Make Character"
+    }))
+  );
+};
+
+var setup = function setup(csrf) {
+  ReactDOM.render( /*#__PURE__*/React.createElement("levelForm", {
+    csrf: csrf
+  }), document.querySelector("#mainLevel"));
+};
+
+var getToken = function getToken() {
+  sendAjax('GET', '/getToken', null, function (result) {
+    setup(result.csrfToken);
+  });
+};
+
+$(document).ready(function () {
+  getToken();
+});
+"use strict";
+
 var handleError = function handleError(message) {
   $("#errorMessage").text(message);
 };

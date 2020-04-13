@@ -7,6 +7,7 @@ const router = (app) => {
   app.get('/getToken', mid.requiresSecure, controllers.Account.getToken);
   app.post('/signup', mid.requiresSecure, mid.requiresLogout, controllers.Account.signup);
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
+  app.get('/main', mid.requiresLogin, controllers.Level.mainPage);
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 };
 
