@@ -1,9 +1,9 @@
 "use strict";
 
-var handleDomo = function handleDomo(e) {
+var handleCharacter = function handleCharacter(e) {
   e.preventDefault();
 
-  if ($("#domoName").val() == '' || $("#domoAge").val() == '') {
+  if ($("#domoName").val() == '') {
     handleError("All fields are required");
     return false;
   }
@@ -15,11 +15,11 @@ var handleDomo = function handleDomo(e) {
 };
 
 var levelForm = function levelForm(props) {
-  return (/*#__PURE__*/React.createElement("form", {
-      id: "levelForm",
-      onSubmit: handleDomo,
-      action: "/main",
-      method: "POST",
+  return (/*#__PURE__*/React.createElement("div", {
+      id: "levelForm" // onSubmit={handleCharacter}
+      // action='/main'
+      // method='POST'
+      ,
       className: "levelForm"
     }, /*#__PURE__*/React.createElement("label", {
       htmlFor: "name"
