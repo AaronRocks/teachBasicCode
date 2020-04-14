@@ -1,2 +1,2 @@
 module.exports.Account = require('./Account.js');
-module.exports.Level = require('./character.js');
+module.exports.Character = require('./Character.js');

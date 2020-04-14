@@ -28,7 +28,7 @@ const login = (request, response) => {
     }
 
     req.session.account = Account.AccountModel.toAPI(account);
-
+    console.log('redirect');
     return res.json({ redirect: '/main' });
   });
 };
