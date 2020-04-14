@@ -64,6 +64,14 @@ CharacterSchema.statics.findByUser = (userId, callback) => {
   return CharacterModel.find(search).select('name level xp').exec(callback);
 };
 
+CharacterSchema.statics.findByName = (name, callback) => {
+  const search = {
+    name,
+  };
+
+  return CharacterModel.find(search).select('name').exec(callback);
+};
+
 CharacterModel = mongoose.model('character', CharacterSchema);
 
 

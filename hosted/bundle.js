@@ -3,24 +3,24 @@
 var handleCharacter = function handleCharacter(e) {
   e.preventDefault();
 
-  if ($("#domoName").val() == '') {
+  if ($("#characterName").val() == '') {
     handleError("All fields are required");
     return false;
   }
 
   sendAjax('POST', $("#levelForm").attr('action'), $("#levelForm").serialize(), function () {
-    loadDomosFromServer();
+    loadCharacterFromServer();
   });
   return false;
 };
 
-var levelForm = function levelForm(props) {
+var CharacterForm = function CharacterForm(props) {
   return (/*#__PURE__*/React.createElement("div", {
-      id: "levelForm" // onSubmit={handleCharacter}
-      // action='/main'
-      // method='POST'
-      ,
-      className: "levelForm"
+      id: "characterForm",
+      onSubmit: handleCharacter,
+      action: "/main",
+      method: "POST",
+      className: "characterForm"
     }, /*#__PURE__*/React.createElement("label", {
       htmlFor: "name"
     }, "Name: "), /*#__PURE__*/React.createElement("input", {
@@ -40,8 +40,49 @@ var levelForm = function levelForm(props) {
   );
 };
 
+var CharacterList = function CharacterList(props) {
+  if (props.character.length === 0) {
+    return (/*#__PURE__*/React.createElement("div", {
+        className: "characterList"
+      }, /*#__PURE__*/React.createElement("h3", {
+        className: "emptyCharacter"
+      }, "No characters Yet"))
+    );
+  }
+
+  var characterNodes = props.character.map(function (character) {
+    return (/*#__PURE__*/React.createElement("div", {
+        key: character._id,
+        className: "character"
+      }, /*#__PURE__*/React.createElement("h3", {
+        className: "characterName"
+      }, "Name: ", character.name))
+    );
+  });
+  return (/*#__PURE__*/React.createElement("div", {
+      className: "characterList"
+    }, characterNodes)
+  );
+};
+
+var loadCharacterFromServer = function loadCharacterFromServer() {
+  sendAjax('GET', '/getCharacter', null, function (data) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(CharacterList, {
+      character: data.character
+    }), document.querySelector("#character"));
+  });
+};
+
+var loadLevelsFromServer = function loadLevelsFromServer() {
+  sendAjax('GET', '/getLevel', null, function (data) {
+    ReactDOM.render( /*#__PURE__*/React.createElement(CharacterList, {
+      character: data.character
+    }), document.querySelector("#character"));
+  });
+};
+
 var setup = function setup(csrf) {
-  ReactDOM.render( /*#__PURE__*/React.createElement("levelForm", {
+  ReactDOM.render( /*#__PURE__*/React.createElement(CharacterForm, {
     csrf: csrf
   }), document.querySelector("#mainLevel"));
 };
