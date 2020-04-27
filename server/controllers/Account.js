@@ -19,18 +19,9 @@ const updatePlatinum = (req, res) => {
 const platinum = (request, response) => {
   const req = request;
   const res = response;
-
-  console.dir('running');
-  const curentAccount = Account.Accountmodel.getStatus(req.session.account._id, (err, account) => {
-    if (err || !account) {
-      return res.status(401).json({ error: 'Wrong username or password' });
-    }
-
-    req.session.account = Account.AccountModel.toAPI(account);
-    console.log(curentAccount);
-    return res.json({ platinum: curentAccount });
-  });
-  return res.json({ redirect: '/main' });
+  console.dir(req.session.account._id);
+  Account.Accountmodel.getStatus(req.session.account._id);
+  return res.json({ error: 'error occured' });
 };
 const login = (request, response) => {
   const req = request;

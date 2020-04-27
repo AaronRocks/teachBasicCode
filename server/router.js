@@ -16,6 +16,8 @@ const router = (app) => {
   app.get('/getCharecter', mid.requiresLogin, controllers.Character.characters);
   app.get('/getLevel', mid.requiresLogin, controllers.Character.levels);
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
+
+  app.get('*', mid.requiresSecure, controllers.Main.notFound);
 };
 
 module.exports = router;

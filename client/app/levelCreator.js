@@ -73,7 +73,8 @@ class CharecterContainer extends React.Component{
             currentCharecters.push(charecter);
             return (
                 <option key={charecter._id} className='charecter' value={increment}>
-                    Name: {charecter.name}
+                    {charecter.name}
+                    {/* <option>{charecter.name}: LV - {charecter.level}, XP - {charecter.xp}</option> */}
                 </option>
             );
         });
@@ -84,8 +85,8 @@ class CharecterContainer extends React.Component{
                     <option>Default Value</option>
                     {charecterList}
                 </select>
-                <h2>Characeter Data</h2>
-                {/* display individual character data if time */}
+                {/*<h2>Characeter Data</h2>
+                 display individual character data if time */}
             </div>
         );
     }
@@ -132,7 +133,7 @@ const createCharacterWindow = (csrf, platinumLevel) =>{
     }
 };
 
-const setup = (csrf, platinumLevel) =>{
+const setup = (csrf /*, platinumLevel*/) =>{
 
     // will call render for different windows depending on current pathname of the url
 
@@ -142,7 +143,7 @@ const setup = (csrf, platinumLevel) =>{
     }
     // if change password, render change password form
     else if (window.location.pathname === '/changePass'){
-        createChangePassWindow(csrf, platinumLevel);
+        createChangePassWindow(csrf/*, platinumLevel*/);
     }
     // if any of the levels, render said level
     else if (window.location.pathname === '/level'){
@@ -151,15 +152,17 @@ const setup = (csrf, platinumLevel) =>{
     // otherwise, not recognized pathname so render 404 page
     else{
         // 404 page not found
+        createStatic404Page();
     }
 
 }
 
 const getToken = () => {
     sendAjax('GET', '/getToken', null, (result) => {
-        sendAjax('GET', '/platinum', null, (status)=> {
-            setup(result.csrfToken, status);
-        })
+        // sendAjax('GET', '/platinum', null, (status)=> {
+        //     setup(result.csrfToken, status);
+        // })
+        setup(result.csrfToken);
     });
 };
 

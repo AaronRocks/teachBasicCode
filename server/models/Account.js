@@ -53,21 +53,11 @@ AccountSchema.statics.upgradeStatus = (userId) => {
 };
 
 AccountSchema.statics.getStatus = (userId) => {
-  console.dir('running 2.0');
   const search = {
     user: convertId(userId),
   };
 
-  return AccountModel.findOne(search, (err, doc) => {
-    if (err) {
-      return (err);
-    }
-
-    if (doc.platinumUser) {
-      return true;
-    }
-    return false;
-  });
+  return AccountModel.findOne(search);
 };
 
 

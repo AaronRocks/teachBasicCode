@@ -178,12 +178,12 @@ var CharecterContainer = /*#__PURE__*/function (_React$Component) {
             key: charecter._id,
             className: "charecter",
             value: increment
-          }, "Name: ", charecter.name)
+          }, charecter.name)
         );
       });
       return (/*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("select", {
           className: "charecter"
-        }, /*#__PURE__*/React.createElement("option", null, "Default Value"), charecterList), /*#__PURE__*/React.createElement("h2", null, "Characeter Data"))
+        }, /*#__PURE__*/React.createElement("option", null, "Default Value"), charecterList))
       );
     }
   }]);
@@ -240,32 +240,51 @@ var createCharacterWindow = function createCharacterWindow(csrf, platinumLevel) 
   }
 };
 
-var setup = function setup(csrf, platinumLevel) {
+var setup = function setup(csrf
+/*, platinumLevel*/
+) {
   // will call render for different windows depending on current pathname of the url
   // if main, display charecter creation and level select
   if (window.location.pathname === '/main') {
     createCharacterWindow(csrf);
   } // if change password, render change password form
   else if (window.location.pathname === '/changePass') {
-      createChangePassWindow(csrf, platinumLevel);
+      createChangePassWindow(csrf
+      /*, platinumLevel*/
+      );
     } // if any of the levels, render said level
     else if (window.location.pathname === '/level') {} // do stuff
       // otherwise, not recognized pathname so render 404 page
-      else {// 404 page not found
+      else {
+          // 404 page not found
+          createStatic404Page();
         }
 };
 
 var getToken = function getToken() {
   sendAjax('GET', '/getToken', null, function (result) {
-    sendAjax('GET', '/platinum', null, function (status) {
-      setup(result.csrfToken, status);
-    });
+    // sendAjax('GET', '/platinum', null, (status)=> {
+    //     setup(result.csrfToken, status);
+    // })
+    setup(result.csrfToken);
   });
 };
 
 $(document).ready(function () {
   getToken();
 });
+"use strict";
+
+var Static404Page = function Static404Page() {
+  return (/*#__PURE__*/React.createElement("div", {
+      id: "notFound"
+    }, /*#__PURE__*/React.createElement("h1", null, "The Page You Are Looking For Does Not Exist"), /*#__PURE__*/React.createElement("h3", null, "Click the 'game'  button above to return to the main app."))
+  );
+};
+
+var createStatic404Page = function createStatic404Page() {
+  ReactDOM.render( /*#__PURE__*/React.createElement(Static404Page, null), document.querySelector("#notFound"));
+};
 "use strict";
 
 var handleError = function handleError(message) {

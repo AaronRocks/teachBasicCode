@@ -57,6 +57,11 @@ const changePassPage = (req, res) => {
   });
 };
 
+const notFound = (req, res) => {
+  res.status(404).render('404Page');
+};
+
 module.exports.mainPage = mainPage;
 module.exports.character = makeCharacter;
 module.exports.changePassPage = changePassPage;
+module.exports.notFound = notFound;
