@@ -6,7 +6,7 @@ const getCharacter = (request, response) => {
   const req = request;
   const res = response;
 
-  return Character.CharacterModel.findByName(req.session.account._id, (err, docs) => {
+  return Character.CharacterModel.findByUser(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occured' });

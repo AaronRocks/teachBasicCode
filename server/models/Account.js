@@ -2,6 +2,7 @@ const crypto = require('crypto');
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
+const convertId = mongoose.Types.ObjectId;
 
 let AccountModel = {};
 const iterations = 10000;
@@ -13,7 +14,6 @@ const AccountSchema = new mongoose.Schema({
     type: String,
     required: true,
     trim: true,
-    unique: true,
     match: /^[A-Za-z0-9_\-.]{1,16}$/,
   },
   salt: {
@@ -22,6 +22,11 @@ const AccountSchema = new mongoose.Schema({
   },
   password: {
     type: String,
+    required: true,
+    unique: true,
+  },
+  platinumUser: {
+    type: Boolean,
     required: true,
   },
   createdDate: {
@@ -35,6 +40,36 @@ AccountSchema.statics.toAPI = (doc) => ({
   username: doc.username,
   _id: doc._id,
 });
+
+AccountSchema.statics.upgradeStatus = (userId) => {
+  const search = {
+    user: convertId(userId),
+  };
+  const update = {
+    platinumUser: true,
+  };
+
+  return AccountModel.findOneAndUpdate(search, update);
+};
+
+AccountSchema.statics.getStatus = (userId) => {
+  console.dir('running 2.0');
+  const search = {
+    user: convertId(userId),
+  };
+
+  return AccountModel.findOne(search, (err, doc) => {
+    if (err){
+      return (err);
+    }
+
+    if (doc.platinumUser){
+      return true;
+    }
+    return false
+  });
+};
+
 
 const validatePassword = (doc, password, callback) => {
   const pass = doc.password;

@@ -11,6 +11,21 @@ const logout = (req, res) => {
   res.redirect('/');
 };
 
+const updatePlatinum = (req, res) => {
+  Account.Accountmodel.upgradeStatus(req.session.account._id);
+  return res.json({ redirect: '/main' });
+};
+
+const platinum = (request, response) => {
+  const req = request;
+  const res = response;
+
+  console.dir('running');
+  let account = Account.Accountmodel.getStatus(req.session.account._id, account);
+
+  console.dir(account);
+};
+
 const login = (request, response) => {
   const req = request;
   const res = response;
@@ -54,6 +69,7 @@ const signup = (request, response) => {
       username: req.body.username,
       salt,
       password: hash,
+      platinumUser: false,
     };
 
     const newAccount = new Account.AccountModel(accountData);
@@ -88,8 +104,57 @@ const getToken = (request, response) => {
   res.json(csrfJSON);
 };
 
+const changePass = (request, response) => {
+  const req = request;
+  const res = response;
+
+  req.body.username = `${req.body.username}`;
+  req.body.pass = `${req.body.pass}`;
+  req.body.newPass = `${req.body.newPass}`;
+
+  if (!req.body.username || !req.body.pass || !req.body.newPass) {
+    return res.status(400).json({ error: 'All fields are required' });
+  }
+
+  if (req.body.pass === req.body.pass2) {
+    return res.status(400).json({ error: 'Password in use. Please select new password' });
+  }
+  // return Account.AccountModel.findByUsername(req.session.account._id, (err, docs) =>
+  // Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {
+  //   const accountData = {
+  //     username: req.body.username,
+  //     salt,
+  //     password: hash,
+  //     platinumUser: Account.AccountModel.platinumUser,
+  //   };
+
+  //   const updateAccount = new Account.AccountModel(accountData);
+
+  //   const savePromise = updateAccount.save();
+
+  //   savePromise.then(() => {
+  //     req.session.account = Account.AccountModel.toAPI(updateAccount);
+  //     return res.json({ redirect: '/main' });
+  //   });
+
+  //   savePromise.catch((err) => {
+  //     console.log(err);
+
+  //     if (err.code === 11000) {
+  //       return res.status(400).json({ error: 'Username already in use.' });
+  //     }
+
+  //     return res.status(400).json({ error: 'An Error occured' });
+  //   });
+  // }));
+  return res.json({ error: 'an error occured' });
+};
+
 module.exports.loginPage = loginPage;
 module.exports.login = login;
 module.exports.logout = logout;
 module.exports.signup = signup;
 module.exports.getToken = getToken;
+module.exports.changePass = changePass;
+module.exports.updatePlatinum = updatePlatinum;
+module.exports.platinum = platinum;

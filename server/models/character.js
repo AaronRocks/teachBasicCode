@@ -38,11 +38,6 @@ const CharacterSchema = new mongoose.Schema({
     ref: 'Account',
   },
 
-  platinumUser: {
-    type: Boolean,
-    required: true,
-  },
-
   createdData: {
     type: Date,
     default: Date.now,
