@@ -21,11 +21,17 @@ const platinum = (request, response) => {
   const res = response;
 
   console.dir('running');
-  let account = Account.Accountmodel.getStatus(req.session.account._id, account);
+  const curentAccount = Account.Accountmodel.getStatus(req.session.account._id, (err, account) => {
+    if (err || !account) {
+      return res.status(401).json({ error: 'Wrong username or password' });
+    }
 
-  console.dir(account);
+    req.session.account = Account.AccountModel.toAPI(account);
+    console.log(curentAccount);
+    return res.json({ platinum: curentAccount });
+  });
+  return res.json({ redirect: '/main' });
 };
-
 const login = (request, response) => {
   const req = request;
   const res = response;

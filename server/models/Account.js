@@ -59,14 +59,14 @@ AccountSchema.statics.getStatus = (userId) => {
   };
 
   return AccountModel.findOne(search, (err, doc) => {
-    if (err){
+    if (err) {
       return (err);
     }
 
-    if (doc.platinumUser){
+    if (doc.platinumUser) {
       return true;
     }
-    return false
+    return false;
   });
 };
 
