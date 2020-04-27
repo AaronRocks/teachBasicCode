@@ -11,7 +11,7 @@ const router = (app) => {
   app.get('/changePass', mid.requiresSecure, controllers.Main.changePassPage);
   app.get('/main', mid.requiresLogin, controllers.Main.mainPage);
   app.post('/main', mid.requiresLogin, controllers.Main.character);
-  app.post('/update', mid.requiresSecure, controllers.Account.updatePlatinum);
+  app.post('/upgrade', mid.requiresSecure, controllers.Account.updatePlatinum);
   app.get('/platinum', mid.requiresSecure, controllers.Account.platinum);
   app.get('/getCharecter', mid.requiresLogin, controllers.Character.characters);
   app.get('/getLevel', mid.requiresLogin, controllers.Character.levels);

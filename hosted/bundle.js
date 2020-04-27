@@ -62,6 +62,8 @@ var createChangePassWindow = function createChangePassWindow(csrf) {
     csrf: csrf
   }), document.querySelector("#passForm"));
 };
+// this is the first and most basic level of the game
+// introduces users to working with JS
 "use strict";
 "use strict";
 
@@ -83,6 +85,8 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+var currentCharecters = [];
+
 var handleCharecter = function handleCharecter(e) {
   e.preventDefault();
 
@@ -97,8 +101,6 @@ var handleCharecter = function handleCharecter(e) {
   });
   return false;
 };
-
-var currentCharecters = [];
 
 var CharecterForm = function CharecterForm(props) {
   return (/*#__PURE__*/React.createElement("form", {
@@ -225,7 +227,82 @@ var PlatinumHolder = function PlatinumHolder() {
   }, "Level 5")));
 };
 
-var createCharacterWindow = function createCharacterWindow(csrf, platinumLevel) {
+var handleUpgrade = function handleUpgrade(e) {
+  e.preventDefault();
+
+  if ($("#userFirstName").val() == '' || $("#userLastName").val() == '') {
+    handleError("Fist and Last Names Required");
+    return false;
+  }
+
+  if ($("#creditNumber").val() <= 999999999999999) {
+    handleError("Full Credit Card Number Requid");
+    return false;
+  }
+
+  if ($("#cvcnumber").val() <= 99) {
+    handleError("cvc Number Requid");
+    return false;
+  }
+
+  sendAjax('POST', $("#upgradeForm").attr('action'), $("#upgradeForm").serialize(), function () {
+    console.log('running');
+  });
+  return false;
+};
+
+var GoPlatinum = function GoPlatinum(props) {
+  return (/*#__PURE__*/React.createElement("form", {
+      id: "upgradeForm",
+      onSubmit: handleUpgrade,
+      action: "/upgrade",
+      method: "POST"
+    }, /*#__PURE__*/React.createElement("label", {
+      htmlFor: "name"
+    }, "First Name: "), /*#__PURE__*/React.createElement("input", {
+      id: "userFirstName",
+      type: "text",
+      name: "name",
+      placeholder: "First Name"
+    }), /*#__PURE__*/React.createElement("label", {
+      htmlFor: "name"
+    }, "Last Name: "), /*#__PURE__*/React.createElement("input", {
+      id: "userLastName",
+      type: "text",
+      name: "name",
+      placeholder: "Last Name"
+    }), /*#__PURE__*/React.createElement("label", {
+      htmlFor: "name"
+    }, "Credit Card Number: "), /*#__PURE__*/React.createElement("input", {
+      id: "creditNumber",
+      type: "number",
+      name: "name",
+      placeholder: "0000 0000 0000 0000"
+    }), /*#__PURE__*/React.createElement("label", {
+      htmlFor: "name"
+    }, "cvc: "), /*#__PURE__*/React.createElement("input", {
+      id: "cvcnumber",
+      type: "number",
+      name: "name",
+      placeholder: "000"
+    }), /*#__PURE__*/React.createElement("input", {
+      type: "hidden",
+      name: "_csrf",
+      value: props.csrf
+    }), /*#__PURE__*/React.createElement("input", {
+      className: "upgradeSubmit",
+      type: "submit",
+      value: "Upgrade to PLatinum"
+    }))
+  );
+};
+
+var createCharacterWindow = function createCharacterWindow(csrf
+/*, platinumLevel*/
+) {
+  ReactDOM.render( /*#__PURE__*/React.createElement(GoPlatinum, {
+    csrf: csrf
+  }), document.querySelector("#platinum"));
   ReactDOM.render( /*#__PURE__*/React.createElement(CharecterForm, {
     csrf: csrf
   }), document.querySelector("#createCharecter")); // run load of charecters already in server at launch time
@@ -234,10 +311,12 @@ var createCharacterWindow = function createCharacterWindow(csrf, platinumLevel) 
     charecter: []
   }), document.querySelector("#charecters"));
   ReactDOM.render( /*#__PURE__*/React.createElement(LevelWindow, null), document.querySelector("#levels")); // if user is platinum level, display extra levels
-
-  if (platinumLevel) {
-    ReactDOM.render( /*#__PURE__*/React.createElement(PlatinumHolder, null), document.querySelector("#platinumLevels"));
-  }
+  // if (platinumLevel){
+  //     ReactDOM.render(
+  //         <PlatinumHolder />,
+  //         document.querySelector("#platinumLevels")
+  //     )
+  // }
 };
 
 var setup = function setup(csrf
@@ -253,7 +332,7 @@ var setup = function setup(csrf
       /*, platinumLevel*/
       );
     } // if any of the levels, render said level
-    else if (window.location.pathname === '/level') {} // do stuff
+    else if (window.location.pathname === '/level1') {} // do stuff
       // otherwise, not recognized pathname so render 404 page
       else {
           // 404 page not found

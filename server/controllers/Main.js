@@ -14,7 +14,6 @@ const mainPage = (req, res) => {
 };
 
 const makeCharacter = (req, res) => {
-  console.log('created');
   if (!req.body.name) {
     return res.status(400).json({ error: 'Name is required' });
   }
@@ -61,7 +60,26 @@ const notFound = (req, res) => {
   res.status(404).render('404Page');
 };
 
+const level1 = (request, response) => {
+  const req = request;
+  const res = response;
+
+  if (!req.body.name) {
+    return res.status(400).json({ error: 'Name is required' });
+  }
+
+  return Character.CharacterModel.findByName(req.body.name, (err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occured' });
+    }
+
+    return res.render('level1', { character: docs });
+  });
+};
+
 module.exports.mainPage = mainPage;
 module.exports.character = makeCharacter;
 module.exports.changePassPage = changePassPage;
 module.exports.notFound = notFound;
+module.exports.level1 = level1;

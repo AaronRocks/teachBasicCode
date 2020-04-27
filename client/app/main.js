@@ -1,3 +1,5 @@
+let currentCharecters = [];
+
 const handleCharecter = (e) => {
     e.preventDefault();
 
@@ -13,8 +15,6 @@ const handleCharecter = (e) => {
 
     return false;
 };
-
-let currentCharecters = [];
 
 const CharecterForm = (props) => {
     return (
@@ -109,7 +109,56 @@ const PlatinumHolder = () => {
     </div>
 }
 
-const createCharacterWindow = (csrf, platinumLevel) =>{
+const handleUpgrade = (e)=>{
+    e.preventDefault();
+
+    if ($("#userFirstName").val() == '' || $("#userLastName").val() == ''){
+        handleError("Fist and Last Names Required");
+        return false;
+    }
+
+    if ($("#creditNumber").val() <=999999999999999 ){
+        handleError("Full Credit Card Number Requid");
+        return false;
+    }
+
+    if ($("#cvcnumber").val() <=99 ){
+        handleError("cvc Number Requid");
+        return false;
+    }
+
+    sendAjax('POST', $("#upgradeForm").attr('action'), $("#upgradeForm").serialize(), function(){
+        console.log('running');
+    });
+
+    return false;    
+}
+
+const GoPlatinum = (props) => {
+   return ( <form id="upgradeForm"
+    onSubmit={handleUpgrade}
+    action='/upgrade'
+    method='POST'
+    >
+    <label htmlFor='name'>First Name: </label>
+    <input id='userFirstName' type='text' name='name' placeholder='First Name' />
+    <label htmlFor='name'>Last Name: </label>
+    <input id='userLastName' type='text' name='name' placeholder='Last Name' />
+    <label htmlFor='name'>Credit Card Number: </label>
+    <input id='creditNumber' type='number' name='name' placeholder='0000 0000 0000 0000' />
+    <label htmlFor='name'>cvc: </label>
+    <input id='cvcnumber' type='number' name='name' placeholder='000' />
+    <input type='hidden' name='_csrf' value={props.csrf} />
+    <input className='upgradeSubmit' type='submit' value='Upgrade to PLatinum' />
+</form>);
+}
+
+const createCharacterWindow = (csrf/*, platinumLevel*/) =>{
+    ReactDOM.render(
+        <GoPlatinum csrf={csrf} />,
+        document.querySelector("#platinum")
+    );
+
     ReactDOM.render(
         <CharecterForm csrf={csrf}/>, document.querySelector("#createCharecter")
     );
@@ -125,12 +174,12 @@ const createCharacterWindow = (csrf, platinumLevel) =>{
         document.querySelector("#levels")
     )
     // if user is platinum level, display extra levels
-    if (platinumLevel){
-        ReactDOM.render(
-            <PlatinumHolder />,
-            document.querySelector("#platinumLevels")
-        )
-    }
+    // if (platinumLevel){
+    //     ReactDOM.render(
+    //         <PlatinumHolder />,
+    //         document.querySelector("#platinumLevels")
+    //     )
+    // }
 };
 
 const setup = (csrf /*, platinumLevel*/) =>{
@@ -146,7 +195,7 @@ const setup = (csrf /*, platinumLevel*/) =>{
         createChangePassWindow(csrf/*, platinumLevel*/);
     }
     // if any of the levels, render said level
-    else if (window.location.pathname === '/level'){
+    else if (window.location.pathname === '/level1'){
         // do stuff
     }
     // otherwise, not recognized pathname so render 404 page
