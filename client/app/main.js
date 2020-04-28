@@ -112,20 +112,24 @@ const PlatinumHolder = () => {
 const handleUpgrade = (e)=>{
     e.preventDefault();
 
-    if ($("#userFirstName").val() == '' || $("#userLastName").val() == ''){
-        handleError("Fist and Last Names Required");
+    if($("#user").val() == '' || $("#pass").val == ''){
         return false;
     }
 
-    if ($("#creditNumber").val() <=999999999999999 ){
-        handleError("Full Credit Card Number Requid");
-        return false;
-    }
+    // if ($("#userFirstName").val() == '' || $("#userLastName").val() == ''){
+    //     handleError("Fist and Last Names Required");
+    //     return false;
+    // }
 
-    if ($("#cvcnumber").val() <=99 ){
-        handleError("cvc Number Requid");
-        return false;
-    }
+    // if ($("#creditNumber").val() <=999999999999999 ){
+    //     handleError("Full Credit Card Number Requid");
+    //     return false;
+    // }
+
+    // if ($("#cvvnumber").val() <=99 ){
+    //     handleError("cvv Number Requid");
+    //     return false;
+    // }
 
     sendAjax('POST', $("#upgradeForm").attr('action'), $("#upgradeForm").serialize(), function(){
         console.log('running');
@@ -140,14 +144,18 @@ const GoPlatinum = (props) => {
     action='/upgrade'
     method='POST'
     >
-    <label htmlFor='name'>First Name: </label>
+    {/* <label htmlFor='firstName'>First Name: </label>
     <input id='userFirstName' type='text' name='name' placeholder='First Name' />
-    <label htmlFor='name'>Last Name: </label>
+    <label htmlFor='lastName'>Last Name: </label>
     <input id='userLastName' type='text' name='name' placeholder='Last Name' />
-    <label htmlFor='name'>Credit Card Number: </label>
+    <label htmlFor='ccn'>Credit Card Number: </label>
     <input id='creditNumber' type='number' name='name' placeholder='0000 0000 0000 0000' />
-    <label htmlFor='name'>cvc: </label>
-    <input id='cvcnumber' type='number' name='name' placeholder='000' />
+    <label htmlFor='name'>cvv: </label>
+    <input id='cvvnumber' type='number' name='name' placeholder='000' /> */}
+    <label htmlFor='username'>Username: </label>
+    <input id="user" type="text" name="username" placeholder="username"/>
+    <label htmlFor="pass">Password: </label>
+    <input id='pass' type="password" name="pass" placeholder="password" />
     <input type='hidden' name='_csrf' value={props.csrf} />
     <input className='upgradeSubmit' type='submit' value='Upgrade to PLatinum' />
 </form>);

@@ -442,20 +442,21 @@ var PlatinumHolder = function PlatinumHolder() {
 var handleUpgrade = function handleUpgrade(e) {
   e.preventDefault();
 
-  if ($("#userFirstName").val() == '' || $("#userLastName").val() == '') {
-    handleError("Fist and Last Names Required");
+  if ($("#user").val() == '' || $("#pass").val == '') {
     return false;
-  }
+  } // if ($("#userFirstName").val() == '' || $("#userLastName").val() == ''){
+  //     handleError("Fist and Last Names Required");
+  //     return false;
+  // }
+  // if ($("#creditNumber").val() <=999999999999999 ){
+  //     handleError("Full Credit Card Number Requid");
+  //     return false;
+  // }
+  // if ($("#cvvnumber").val() <=99 ){
+  //     handleError("cvv Number Requid");
+  //     return false;
+  // }
 
-  if ($("#creditNumber").val() <= 999999999999999) {
-    handleError("Full Credit Card Number Requid");
-    return false;
-  }
-
-  if ($("#cvcnumber").val() <= 99) {
-    handleError("cvc Number Requid");
-    return false;
-  }
 
   sendAjax('POST', $("#upgradeForm").attr('action'), $("#upgradeForm").serialize(), function () {
     console.log('running');
@@ -470,33 +471,19 @@ var GoPlatinum = function GoPlatinum(props) {
       action: "/upgrade",
       method: "POST"
     }, /*#__PURE__*/React.createElement("label", {
-      htmlFor: "name"
-    }, "First Name: "), /*#__PURE__*/React.createElement("input", {
-      id: "userFirstName",
+      htmlFor: "username"
+    }, "Username: "), /*#__PURE__*/React.createElement("input", {
+      id: "user",
       type: "text",
-      name: "name",
-      placeholder: "First Name"
+      name: "username",
+      placeholder: "username"
     }), /*#__PURE__*/React.createElement("label", {
-      htmlFor: "name"
-    }, "Last Name: "), /*#__PURE__*/React.createElement("input", {
-      id: "userLastName",
-      type: "text",
-      name: "name",
-      placeholder: "Last Name"
-    }), /*#__PURE__*/React.createElement("label", {
-      htmlFor: "name"
-    }, "Credit Card Number: "), /*#__PURE__*/React.createElement("input", {
-      id: "creditNumber",
-      type: "number",
-      name: "name",
-      placeholder: "0000 0000 0000 0000"
-    }), /*#__PURE__*/React.createElement("label", {
-      htmlFor: "name"
-    }, "cvc: "), /*#__PURE__*/React.createElement("input", {
-      id: "cvcnumber",
-      type: "number",
-      name: "name",
-      placeholder: "000"
+      htmlFor: "pass"
+    }, "Password: "), /*#__PURE__*/React.createElement("input", {
+      id: "pass",
+      type: "password",
+      name: "pass",
+      placeholder: "password"
     }), /*#__PURE__*/React.createElement("input", {
       type: "hidden",
       name: "_csrf",

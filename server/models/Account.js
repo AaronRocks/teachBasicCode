@@ -2,7 +2,6 @@ const crypto = require('crypto');
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-const convertId = mongoose.Types.ObjectId;
 
 let AccountModel = {};
 const iterations = 10000;
@@ -41,9 +40,10 @@ AccountSchema.statics.toAPI = (doc) => ({
   _id: doc._id,
 });
 
-AccountSchema.statics.upgradeStatus = (userId) => {
+AccountSchema.statics.upgradeStatus = (user) => {
+  console.log('running');
   const search = {
-    user: convertId(userId),
+    username: user,
   };
   const update = {
     platinumUser: true,
@@ -52,12 +52,15 @@ AccountSchema.statics.upgradeStatus = (userId) => {
   return AccountModel.findOneAndUpdate(search, update);
 };
 
-AccountSchema.statics.getStatus = (userId) => {
+AccountSchema.statics.changePassword = (user, password, callback) => {
   const search = {
-    user: convertId(userId),
+    username: user,
+  };
+  const update = {
+    password: this.generateHash(password, callback),
   };
 
-  return AccountModel.findOne(search);
+  return AccountModel.findOneAndUpdate(search, update);
 };
 
 

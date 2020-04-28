@@ -12,16 +12,22 @@ const logout = (req, res) => {
 };
 
 const updatePlatinum = (req, res) => {
-  Account.Accountmodel.upgradeStatus(req.session.account._id);
+  const username = `${req.body.username}`;
+  Account.Accountmodel.upgradeStatus(username);
   return res.json({ redirect: '/main' });
 };
 
 const platinum = (request, response) => {
   const req = request;
   const res = response;
-  console.dir(req.session.account._id);
-  Account.Accountmodel.getStatus(req.session.account._id);
-  return res.json({ error: 'error occured' });
+  const username = `${req.body.username}`;
+  console.dir(username);
+  return Account.Accountmodel.findByUsername(username, (err, doc) => {
+    if (err) {
+      res.json({ error: 'a problem occured' });
+    }
+    return res.json({ platinum: doc.platinumUser });
+  });
 };
 const login = (request, response) => {
   const req = request;
@@ -116,35 +122,33 @@ const changePass = (request, response) => {
   if (req.body.pass === req.body.pass2) {
     return res.status(400).json({ error: 'Password in use. Please select new password' });
   }
-  // return Account.AccountModel.findByUsername(req.session.account._id, (err, docs) =>
-  // Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {
-  //   const accountData = {
-  //     username: req.body.username,
-  //     salt,
-  //     password: hash,
-  //     platinumUser: Account.AccountModel.platinumUser,
-  //   };
+  return Account.AccountModel.changePassword(req.body.username, req.body.newPass, (salt, hash) => {
+    const accountData = {
+      username: req.body.username,
+      salt,
+      password: hash,
+      platinumUser: Account.AccountModel.platinumUser,
+    };
 
-  //   const updateAccount = new Account.AccountModel(accountData);
+    const updateAccount = new Account.AccountModel(accountData);
 
-  //   const savePromise = updateAccount.save();
+    const savePromise = updateAccount.save();
 
-  //   savePromise.then(() => {
-  //     req.session.account = Account.AccountModel.toAPI(updateAccount);
-  //     return res.json({ redirect: '/main' });
-  //   });
+    savePromise.then(() => {
+      req.session.account = Account.AccountModel.toAPI(updateAccount);
+      return res.json({ redirect: '/main' });
+    });
 
-  //   savePromise.catch((err) => {
-  //     console.log(err);
+    savePromise.catch((err) => {
+      console.log(err);
 
-  //     if (err.code === 11000) {
-  //       return res.status(400).json({ error: 'Username already in use.' });
-  //     }
+      if (err.code === 11000) {
+        return res.status(400).json({ error: 'Username already in use.' });
+      }
 
-  //     return res.status(400).json({ error: 'An Error occured' });
-  //   });
-  // }));
-  return res.json({ error: 'an error occured' });
+      return res.status(400).json({ error: 'An Error occured' });
+    });
+  });
 };
 
 module.exports.loginPage = loginPage;
