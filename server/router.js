@@ -9,12 +9,12 @@ const router = (app) => {
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
   app.post('/changePass', mid.requiresSecure, controllers.Account.changePass);
   app.get('/changePass', mid.requiresSecure, controllers.Main.changePassPage);
+  app.get('/level1', mid.requiresSecure, controllers.Main.level1);
   app.get('/main', mid.requiresLogin, controllers.Main.mainPage);
-  app.post('/main', mid.requiresLogin, controllers.Main.character);
+  app.post('/main', mid.requiresLogin, controllers.Character.character);
   app.post('/upgrade', mid.requiresSecure, controllers.Account.updatePlatinum);
   app.get('/platinum', mid.requiresSecure, controllers.Account.platinum);
   app.get('/getCharecter', mid.requiresLogin, controllers.Character.characters);
-  app.get('/getLevel', mid.requiresLogin, controllers.Character.levels);
   app.get('/', mid.requiresSecure, mid.requiresLogout, controllers.Account.loginPage);
 
   app.get('*', mid.requiresSecure, controllers.Main.notFound);

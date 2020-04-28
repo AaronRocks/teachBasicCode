@@ -196,7 +196,7 @@ const setup = (csrf /*, platinumLevel*/) =>{
     }
     // if any of the levels, render said level
     else if (window.location.pathname === '/level1'){
-        // do stuff
+        createLevel();
     }
     // otherwise, not recognized pathname so render 404 page
     else{
