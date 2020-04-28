@@ -85,7 +85,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 // this is the first and most basic level of the game
 // introduces users to working with JS
 var Intro = function Intro() {
-  return (/*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, "Welcome to Javascript (", /*#__PURE__*/React.createElement("i", null, "JS for short"), ")"), /*#__PURE__*/React.createElement("h3", null, "If you've coeded before, skip this leason and go to level 2. Or try this for some easy XP and a brief recap"), /*#__PURE__*/React.createElement("h4", null, "In this exersize we'll learn about assigning values to variables."), /*#__PURE__*/React.createElement("p", null, "Simply put, a variable is a container that holds whatever information you put in it. In other languages, different types of variables are responsible for holding the different bits of information. Normally, I would declare what my box is, and then put in the information corrosponing to that box type ie. if I said 'int' I would be storing an intiger. JS is different. One box fits all here. Instead of typing my variables, I can declare them with the simple expresion 'let'. For exapmple: let (name of your variable) = (value being stored); Now you try. Try assiagning a variable below."))
+  return (/*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, "Welcome to Javascript (", /*#__PURE__*/React.createElement("i", null, "JS for short"), ")"), /*#__PURE__*/React.createElement("h3", null, "If you've codeded before, skip this leason and go to level 2. Or try this for some easy XP and a brief recap"), /*#__PURE__*/React.createElement("h4", null, "In this exersize we'll learn about assigning values to variables."), /*#__PURE__*/React.createElement("p", null, "Simply put, a variable is a container that holds whatever information you put in it. In other languages, different types of variables are responsible for holding the different bits of information. Normally, I would declare what my box is, and then put in the information corrosponing to that box type ie. if I said 'int' I would be storing an intiger. JS is different. One box fits all here. Instead of typing my variables, I can declare them with the simple expresion 'let'. For exapmple: let (name of your variable) = (value being stored); Now you try. Try assiagning a variable below."))
   );
 };
 
@@ -99,9 +99,10 @@ var IntroUser = /*#__PURE__*/function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(IntroUser).call(this, props));
     _this.state = {
-      myVar: props.variable
+      myVar: ''
     };
     _this.handleVarChange = _this.handleVarChange.bind(_assertThisInitialized(_this));
+    _this.runVar = _this.runVar.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -114,19 +115,21 @@ var IntroUser = /*#__PURE__*/function (_React$Component) {
     }
   }, {
     key: "runVar",
-    value: function runVar(e) {
-      e.preventDefult();
-      var myVariable = this.state.myVar;
-      console.log(myVariable); // if (this.state.myVar.incudes('let')){
-      //     let userVarArray = this.state.variable.split('=');
-      //     let userVar = userVarArray[1];
-      //     if (userVar){
-      //         // they did it
-      //     }
-      //     else{
-      //         // keep trying
-      //     }
-      // }
+    value: function runVar() {
+      var myVariable = this.state.myVar.toString().trim();
+      var ending = false;
+
+      if (myVariable.includes('=')) {
+        var userVarArray = myVariable.split('=');
+        var userVar = userVarArray[1];
+
+        if (userVar) {
+          // they did it
+          ending = true;
+        }
+      }
+
+      createEnding(ending);
     }
   }, {
     key: "render",
@@ -149,6 +152,25 @@ var IntroUser = /*#__PURE__*/function (_React$Component) {
 
   return IntroUser;
 }(React.Component);
+
+var Ending = function Ending(end) {
+  var text = '';
+
+  if (end.end) {
+    text = 'You did it!';
+  } else {
+    text = 'Try Again!';
+  }
+
+  return (/*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, text))
+  );
+};
+
+var createEnding = function createEnding(ending) {
+  ReactDOM.render( /*#__PURE__*/React.createElement(Ending, {
+    end: ending
+  }), document.querySelector("#ending"));
+};
 
 var createLevel = function createLevel() {
   ReactDOM.render( /*#__PURE__*/React.createElement(Intro, null), document.querySelector("#intro"));

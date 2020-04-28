@@ -4,7 +4,7 @@ const Intro = () =>{
     return (
         <div>
             <h2>Welcome to Javascript (<i>JS for short</i>)</h2>
-            <h3>If you've coeded before, skip this leason and go to level 2.
+            <h3>If you've codeded before, skip this leason and go to level 2.
                  Or try this for some easy XP and a brief recap</h3>
             <h4>In this exersize we'll learn about assigning values to variables.</h4>
             <p>Simply put, a variable is a container that holds whatever information you put in it. 
@@ -23,30 +23,29 @@ class IntroUser extends React.Component {
         super(props);
 
         this.state = {
-            myVar: props.variable,
+            myVar: '',
         };
 
         this.handleVarChange = this.handleVarChange.bind(this);
+        this.runVar = this.runVar.bind(this);
     }
 
     handleVarChange(e) {
         this.setState({myVar: e.target.value});
     }
 
-    runVar (e){
-        e.preventDefult();
-        let myVariable = this.state.myVar;
-        console.log(myVariable);
-        // if (this.state.myVar.incudes('let')){
-        //     let userVarArray = this.state.variable.split('=');
-        //     let userVar = userVarArray[1];
-        //     if (userVar){
-        //         // they did it
-        //     }
-        //     else{
-        //         // keep trying
-        //     }
-        // }
+    runVar (){
+        let myVariable = (this.state.myVar).toString().trim();
+        let ending = false;
+        if (myVariable.includes('=')){
+            let userVarArray = myVariable.split('=');
+            let userVar = userVarArray[1];
+            if (userVar){
+                // they did it
+                ending = true;
+            }
+        }
+        createEnding(ending);
     }
 
     render() {
@@ -59,6 +58,28 @@ class IntroUser extends React.Component {
             </div>
         );
     };
+}
+
+const Ending = (end) =>{
+    let text = '';
+    if (end.end){
+        text = 'You did it!'
+    }
+    else{
+        text = 'Try Again!'
+    }
+    return (
+        <div>
+            <h3>{text}</h3>
+        </div>
+    )
+}
+
+const createEnding = (ending) => {
+    ReactDOM.render(
+        <Ending end={ending}/>,
+        document.querySelector("#ending")
+    );
 }
 
 const createLevel = () =>{

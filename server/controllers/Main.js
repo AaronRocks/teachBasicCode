@@ -28,7 +28,6 @@ const notFound = (req, res) => {
 };
 
 const level1 = (request, response) => {
-  const req = request;
   const res = response;
   return res.render('level1');
 };
