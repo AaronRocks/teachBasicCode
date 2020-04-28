@@ -9,7 +9,6 @@ const handleCharecter = (e) => {
     }
 
     sendAjax('POST', $("#charecterForm").attr('action'), $("#charecterForm").serialize(), function(){
-        console.log('running');
         loadCharecterFromServer();
     });
 
@@ -116,23 +115,22 @@ const handleUpgrade = (e)=>{
         return false;
     }
 
-    // if ($("#userFirstName").val() == '' || $("#userLastName").val() == ''){
-    //     handleError("Fist and Last Names Required");
-    //     return false;
-    // }
+    if ($("#userFirstName").val() == '' || $("#userLastName").val() == ''){
+        handleError("Fist and Last Names Required");
+        return false;
+    }
 
-    // if ($("#creditNumber").val() <=999999999999999 ){
-    //     handleError("Full Credit Card Number Requid");
-    //     return false;
-    // }
+    if ($("#creditNumber").val() <=999999999999999 ){
+        handleError("Full Credit Card Number Requid");
+        return false;
+    }
 
-    // if ($("#cvvnumber").val() <=99 ){
-    //     handleError("cvv Number Requid");
-    //     return false;
-    // }
+    if ($("#cvvnumber").val() <=99 ){
+        handleError("cvv Number Requid");
+        return false;
+    }
 
     sendAjax('POST', $("#upgradeForm").attr('action'), $("#upgradeForm").serialize(), function(){
-        console.log('running');
     });
 
     return false;    
@@ -144,20 +142,20 @@ const GoPlatinum = (props) => {
     action='/upgrade'
     method='POST'
     >
-    {/* <label htmlFor='firstName'>First Name: </label>
-    <input id='userFirstName' type='text' name='name' placeholder='First Name' />
+    <label htmlFor='firstName'>First Name: </label>
+    <input className='userName' type='text' name='name' placeholder='First Name' />
     <label htmlFor='lastName'>Last Name: </label>
-    <input id='userLastName' type='text' name='name' placeholder='Last Name' />
+    <input className='userName' type='text' name='name' placeholder='Last Name' />
     <label htmlFor='ccn'>Credit Card Number: </label>
     <input id='creditNumber' type='number' name='name' placeholder='0000 0000 0000 0000' />
     <label htmlFor='name'>cvv: </label>
-    <input id='cvvnumber' type='number' name='name' placeholder='000' /> */}
+    <input id='cvvnumber' type='number' name='name' placeholder='000' />
     <label htmlFor='username'>Username: </label>
-    <input id="user" type="text" name="username" placeholder="username"/>
+    <input className='userName' type="text" name="username" placeholder="username"/>
     <label htmlFor="pass">Password: </label>
-    <input id='pass' type="password" name="pass" placeholder="password" />
+    <input id='password' type="password" name="pass" placeholder="password" />
     <input type='hidden' name='_csrf' value={props.csrf} />
-    <input className='upgradeSubmit' type='submit' value='Upgrade to PLatinum' />
+    <input className='upgradeSubmit' type='submit' value='Upgrade to Platinum' />
 </form>);
 }
 

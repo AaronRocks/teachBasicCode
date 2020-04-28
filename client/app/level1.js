@@ -54,7 +54,7 @@ class IntroUser extends React.Component {
                 <p>let:</p>
                 <input id="answer" type='text' value={this.state.myVar} onChange={this.handleVarChange}/>
                 <button onClick={this.runVar}>Run Code</button>
-                <p id='container'>{this.state.myVar}</p>
+                <p id='card'>{this.state.myVar}</p>
             </div>
         );
     };
@@ -78,18 +78,18 @@ const Ending = (end) =>{
 const createEnding = (ending) => {
     ReactDOM.render(
         <Ending end={ending}/>,
-        document.querySelector("#ending")
+        document.querySelector("#ending1")
     );
 }
 
 const createLevel1 = () =>{
     ReactDOM.render(
         <Intro />,
-        document.querySelector("#intro")
+        document.querySelector("#intro1")
     );
 
     ReactDOM.render(
         <IntroUser />,
-        document.querySelector("#level")
+        document.querySelector("#level1")
     )
 }

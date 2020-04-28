@@ -1,6 +1,6 @@
 // this is the first and most basic level of the game
 // introduces users to working with JS
-const Intro = () =>{
+const Intro2 = () =>{
     let h1 = `<h1></h1>`;
     let p = '<p></p>'
     return (
@@ -21,7 +21,7 @@ const Intro = () =>{
     )
 };
 
-class IntroUser extends React.Component {
+class IntroUser2 extends React.Component {
     constructor (props) {
         super(props);
 
@@ -57,13 +57,13 @@ class IntroUser extends React.Component {
             <div id="workspace">
                 <input id="answer" type='text' value={this.state.myVar} onChange={this.handleVarChange}/>
                 <button onClick={this.runVar}>Run Code</button>
-                {/* <p id='container'>{this.state.myVar}</p> */}
+                <p id='card'>{this.state.myVar}</p>
             </div>
         );
     };
 }
 
-const Ending = (end) =>{
+const Ending2 = (end) =>{
     let text = '';
     if (end.end){
         text = 'You did it!'
@@ -80,19 +80,19 @@ const Ending = (end) =>{
 
 const createEnding2 = (ending) => {
     ReactDOM.render(
-        <Ending end={ending}/>,
+        <Ending2 end={ending}/>,
         document.querySelector("#ending")
     );
 }
 
 const createLevel2 = () =>{
     ReactDOM.render(
-        <Intro />,
+        <Intro2 />,
         document.querySelector("#intro")
     );
 
     ReactDOM.render(
-        <IntroUser />,
+        <IntroUser2 />,
         document.querySelector("#level")
     )
 }

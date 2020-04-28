@@ -4,6 +4,17 @@ html, body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    background-color: rgb(10, 31, 10);
+    color: rgb(204, 57, 118);
+}
+
+#container {
+    margin: 1em;
+    border: solid;
+    border-color: thistle;
+    padding: 1em;
+    height: 60%;
+
 }
 
 #logo {
@@ -12,6 +23,15 @@ html, body {
     padding-top: 5px;
     float:left;
     border-radius: 8px;
+}
+
+#upgradeForm {
+    width: 40;
+    float: left;
+}
+
+#charecters {
+    float: right;
 }
 
 nav {
@@ -47,7 +67,11 @@ nav:nth-child(1) {
     background-color: #632555;
 }
 
-
+#level1 p, #level2 p {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
 .mainForm {
     height: 300px;
     width: 350px;

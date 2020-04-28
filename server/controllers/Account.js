@@ -12,9 +12,10 @@ const logout = (req, res) => {
 };
 
 const updatePlatinum = (req, res) => {
-  const username = `${req.body.username}`;
-  Account.Accountmodel.upgradeStatus(username);
-  return res.json({ redirect: '/main' });
+  // const username = `${req.body.username}`;
+  // Account.Accountmodel.upgradeStatus(username);
+  // return res.json({ redirect: '/main' });
+  res.status(500).json({ error: 'internal server error. upgradeStatus undefined (it says)' });
 };
 
 const platinum = (request, response) => {
@@ -122,33 +123,34 @@ const changePass = (request, response) => {
   if (req.body.pass === req.body.pass2) {
     return res.status(400).json({ error: 'Password in use. Please select new password' });
   }
-  return Account.AccountModel.changePassword(req.body.username, req.body.newPass, (salt, hash) => {
-    const accountData = {
-      username: req.body.username,
-      salt,
-      password: hash,
-      platinumUser: Account.AccountModel.platinumUser,
-    };
+  // return Account.AccountModel.changePassword(req.body.username,req.body.newPass,(salt, hash)=>{
+  //   const accountData = {
+  //     username: req.body.username,
+  //     salt,
+  //     password: hash,
+  //     platinumUser: Account.AccountModel.platinumUser,
+  //   };
 
-    const updateAccount = new Account.AccountModel(accountData);
+  //   const updateAccount = new Account.AccountModel(accountData);
 
-    const savePromise = updateAccount.save();
+  //   const savePromise = updateAccount.save();
 
-    savePromise.then(() => {
-      req.session.account = Account.AccountModel.toAPI(updateAccount);
-      return res.json({ redirect: '/main' });
-    });
+  //   savePromise.then(() => {
+  //     req.session.account = Account.AccountModel.toAPI(updateAccount);
+  //     return res.json({ redirect: '/main' });
+  //   });
 
-    savePromise.catch((err) => {
-      console.log(err);
+  //   savePromise.catch((err) => {
+  //     console.log(err);
 
-      if (err.code === 11000) {
-        return res.status(400).json({ error: 'Username already in use.' });
-      }
+  //     if (err.code === 11000) {
+  //       return res.status(400).json({ error: 'Username already in use.' });
+  //     }
 
-      return res.status(400).json({ error: 'An Error occured' });
-    });
-  });
+  //     return res.status(400).json({ error: 'An Error occured' });
+  //   });
+  // });
+  return res.status(400).json({ error: 'internal server error - claiming missing csrf token' });
 };
 
 module.exports.loginPage = loginPage;

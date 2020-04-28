@@ -144,7 +144,7 @@ var IntroUser = /*#__PURE__*/function (_React$Component) {
         }), /*#__PURE__*/React.createElement("button", {
           onClick: this.runVar
         }, "Run Code"), /*#__PURE__*/React.createElement("p", {
-          id: "container"
+          id: "card"
         }, this.state.myVar))
       );
     }
@@ -169,12 +169,12 @@ var Ending = function Ending(end) {
 var createEnding = function createEnding(ending) {
   ReactDOM.render( /*#__PURE__*/React.createElement(Ending, {
     end: ending
-  }), document.querySelector("#ending"));
+  }), document.querySelector("#ending1"));
 };
 
 var createLevel1 = function createLevel1() {
-  ReactDOM.render( /*#__PURE__*/React.createElement(Intro, null), document.querySelector("#intro"));
-  ReactDOM.render( /*#__PURE__*/React.createElement(IntroUser, null), document.querySelector("#level"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(Intro, null), document.querySelector("#intro1"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(IntroUser, null), document.querySelector("#level1"));
 };
 "use strict";
 
@@ -198,22 +198,22 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 // this is the first and most basic level of the game
 // introduces users to working with JS
-var Intro = function Intro() {
+var Intro2 = function Intro2() {
   var h1 = "<h1></h1>";
   var p = '<p></p>';
   return (/*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, "Learning about HTML (", /*#__PURE__*/React.createElement("i", null, "Hypertransfer Markup Language"), ")"), /*#__PURE__*/React.createElement("h3", null, "This page is made up of elements of different sizes"), /*#__PURE__*/React.createElement("h4", null, "In this exersize we'll learn about creating HTML Elements."), /*#__PURE__*/React.createElement("p", null, "Simply put, there if a variable is a container for information in code, an element on a website page is a containter for the webpage. Unlike for variables, the boxes for website elements come in a much wider range of sizes. These boxes, like their physical counterparts can be stacked in one another. A basic tag would be a header tag. Most tags have something that opens it, and then another one to close it (kind of like a boxe with a lid). An example would be ", h1, ". While there are many types of h tags, the most common are h1 - h5. smaller than that and a paragraph tag ", p, " is larger."), /*#__PURE__*/React.createElement("h5", null, "Now you try it. Create a container that has the phrase \"Hello World\" in it."))
   );
 };
 
-var IntroUser = /*#__PURE__*/function (_React$Component) {
-  _inherits(IntroUser, _React$Component);
+var IntroUser2 = /*#__PURE__*/function (_React$Component) {
+  _inherits(IntroUser2, _React$Component);
 
-  function IntroUser(props) {
+  function IntroUser2(props) {
     var _this;
 
-    _classCallCheck(this, IntroUser);
+    _classCallCheck(this, IntroUser2);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(IntroUser).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(IntroUser2).call(this, props));
     _this.state = {
       myVar: ''
     };
@@ -222,7 +222,7 @@ var IntroUser = /*#__PURE__*/function (_React$Component) {
     return _this;
   }
 
-  _createClass(IntroUser, [{
+  _createClass(IntroUser2, [{
     key: "handleVarChange",
     value: function handleVarChange(e) {
       this.setState({
@@ -258,15 +258,17 @@ var IntroUser = /*#__PURE__*/function (_React$Component) {
           onChange: this.handleVarChange
         }), /*#__PURE__*/React.createElement("button", {
           onClick: this.runVar
-        }, "Run Code"))
+        }, "Run Code"), /*#__PURE__*/React.createElement("p", {
+          id: "card"
+        }, this.state.myVar))
       );
     }
   }]);
 
-  return IntroUser;
+  return IntroUser2;
 }(React.Component);
 
-var Ending = function Ending(end) {
+var Ending2 = function Ending2(end) {
   var text = '';
 
   if (end.end) {
@@ -280,14 +282,14 @@ var Ending = function Ending(end) {
 };
 
 var createEnding2 = function createEnding2(ending) {
-  ReactDOM.render( /*#__PURE__*/React.createElement(Ending, {
+  ReactDOM.render( /*#__PURE__*/React.createElement(Ending2, {
     end: ending
   }), document.querySelector("#ending"));
 };
 
 var createLevel2 = function createLevel2() {
-  ReactDOM.render( /*#__PURE__*/React.createElement(Intro, null), document.querySelector("#intro"));
-  ReactDOM.render( /*#__PURE__*/React.createElement(IntroUser, null), document.querySelector("#level"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(Intro2, null), document.querySelector("#intro"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(IntroUser2, null), document.querySelector("#level"));
 };
 "use strict";
 
@@ -320,7 +322,6 @@ var handleCharecter = function handleCharecter(e) {
   }
 
   sendAjax('POST', $("#charecterForm").attr('action'), $("#charecterForm").serialize(), function () {
-    console.log('running');
     loadCharecterFromServer();
   });
   return false;
@@ -444,23 +445,24 @@ var handleUpgrade = function handleUpgrade(e) {
 
   if ($("#user").val() == '' || $("#pass").val == '') {
     return false;
-  } // if ($("#userFirstName").val() == '' || $("#userLastName").val() == ''){
-  //     handleError("Fist and Last Names Required");
-  //     return false;
-  // }
-  // if ($("#creditNumber").val() <=999999999999999 ){
-  //     handleError("Full Credit Card Number Requid");
-  //     return false;
-  // }
-  // if ($("#cvvnumber").val() <=99 ){
-  //     handleError("cvv Number Requid");
-  //     return false;
-  // }
+  }
 
+  if ($("#userFirstName").val() == '' || $("#userLastName").val() == '') {
+    handleError("Fist and Last Names Required");
+    return false;
+  }
 
-  sendAjax('POST', $("#upgradeForm").attr('action'), $("#upgradeForm").serialize(), function () {
-    console.log('running');
-  });
+  if ($("#creditNumber").val() <= 999999999999999) {
+    handleError("Full Credit Card Number Requid");
+    return false;
+  }
+
+  if ($("#cvvnumber").val() <= 99) {
+    handleError("cvv Number Requid");
+    return false;
+  }
+
+  sendAjax('POST', $("#upgradeForm").attr('action'), $("#upgradeForm").serialize(), function () {});
   return false;
 };
 
@@ -471,16 +473,44 @@ var GoPlatinum = function GoPlatinum(props) {
       action: "/upgrade",
       method: "POST"
     }, /*#__PURE__*/React.createElement("label", {
+      htmlFor: "firstName"
+    }, "First Name: "), /*#__PURE__*/React.createElement("input", {
+      className: "userName",
+      type: "text",
+      name: "name",
+      placeholder: "First Name"
+    }), /*#__PURE__*/React.createElement("label", {
+      htmlFor: "lastName"
+    }, "Last Name: "), /*#__PURE__*/React.createElement("input", {
+      className: "userName",
+      type: "text",
+      name: "name",
+      placeholder: "Last Name"
+    }), /*#__PURE__*/React.createElement("label", {
+      htmlFor: "ccn"
+    }, "Credit Card Number: "), /*#__PURE__*/React.createElement("input", {
+      id: "creditNumber",
+      type: "number",
+      name: "name",
+      placeholder: "0000 0000 0000 0000"
+    }), /*#__PURE__*/React.createElement("label", {
+      htmlFor: "name"
+    }, "cvv: "), /*#__PURE__*/React.createElement("input", {
+      id: "cvvnumber",
+      type: "number",
+      name: "name",
+      placeholder: "000"
+    }), /*#__PURE__*/React.createElement("label", {
       htmlFor: "username"
     }, "Username: "), /*#__PURE__*/React.createElement("input", {
-      id: "user",
+      className: "userName",
       type: "text",
       name: "username",
       placeholder: "username"
     }), /*#__PURE__*/React.createElement("label", {
       htmlFor: "pass"
     }, "Password: "), /*#__PURE__*/React.createElement("input", {
-      id: "pass",
+      id: "password",
       type: "password",
       name: "pass",
       placeholder: "password"
@@ -491,7 +521,7 @@ var GoPlatinum = function GoPlatinum(props) {
     }), /*#__PURE__*/React.createElement("input", {
       className: "upgradeSubmit",
       type: "submit",
-      value: "Upgrade to PLatinum"
+      value: "Upgrade to Platinum"
     }))
   );
 };
