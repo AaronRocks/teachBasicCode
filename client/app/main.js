@@ -96,16 +96,16 @@ const LevelWindow = () => {
     return (
     <div id='levels'>
         <div className='levelLink'><a href='/level1'>Level 1</a></div>
-        <div className='levelLink'><a href='/level2'>Level 2</a></div>
-        <div className='levelLink'><a href='/level3'>Level 3</a></div>
-        <div className='levelLink'><a href='/level4'>Level 4</a></div>
+        {/*<div className='levelLink'><a href='/level2'>Level 2</a></div>
+         <div className='levelLink'><a href='/level3'>Level 3</a></div>
+        <div className='levelLink'><a href='/level4'>Level 4</a></div> */}
     </div>
     )
 }
 
 const PlatinumHolder = () => {
     <div id='platinumLevels'>
-        <div class='levelLink'><a href='/level5'>Level 5</a></div>
+        <div class='levelLink'><a href='/level2'>Level 2</a></div>
     </div>
 }
 
@@ -196,7 +196,10 @@ const setup = (csrf /*, platinumLevel*/) =>{
     }
     // if any of the levels, render said level
     else if (window.location.pathname === '/level1'){
-        createLevel();
+        createLevel1();
+    }
+    else if (window.location.pathname === '/level2'){
+        createLevel2();
     }
     // otherwise, not recognized pathname so render 404 page
     else{

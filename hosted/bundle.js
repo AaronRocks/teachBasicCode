@@ -172,7 +172,120 @@ var createEnding = function createEnding(ending) {
   }), document.querySelector("#ending"));
 };
 
-var createLevel = function createLevel() {
+var createLevel1 = function createLevel1() {
+  ReactDOM.render( /*#__PURE__*/React.createElement(Intro, null), document.querySelector("#intro"));
+  ReactDOM.render( /*#__PURE__*/React.createElement(IntroUser, null), document.querySelector("#level"));
+};
+"use strict";
+
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+// this is the first and most basic level of the game
+// introduces users to working with JS
+var Intro = function Intro() {
+  var h1 = "<h1></h1>";
+  var p = '<p></p>';
+  return (/*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", null, "Learning about HTML (", /*#__PURE__*/React.createElement("i", null, "Hypertransfer Markup Language"), ")"), /*#__PURE__*/React.createElement("h3", null, "This page is made up of elements of different sizes"), /*#__PURE__*/React.createElement("h4", null, "In this exersize we'll learn about creating HTML Elements."), /*#__PURE__*/React.createElement("p", null, "Simply put, there if a variable is a container for information in code, an element on a website page is a containter for the webpage. Unlike for variables, the boxes for website elements come in a much wider range of sizes. These boxes, like their physical counterparts can be stacked in one another. A basic tag would be a header tag. Most tags have something that opens it, and then another one to close it (kind of like a boxe with a lid). An example would be ", h1, ". While there are many types of h tags, the most common are h1 - h5. smaller than that and a paragraph tag ", p, " is larger."), /*#__PURE__*/React.createElement("h5", null, "Now you try it. Create a container that has the phrase \"Hello World\" in it."))
+  );
+};
+
+var IntroUser = /*#__PURE__*/function (_React$Component) {
+  _inherits(IntroUser, _React$Component);
+
+  function IntroUser(props) {
+    var _this;
+
+    _classCallCheck(this, IntroUser);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(IntroUser).call(this, props));
+    _this.state = {
+      myVar: ''
+    };
+    _this.handleVarChange = _this.handleVarChange.bind(_assertThisInitialized(_this));
+    _this.runVar = _this.runVar.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(IntroUser, [{
+    key: "handleVarChange",
+    value: function handleVarChange(e) {
+      this.setState({
+        myVar: e.target.value
+      });
+    }
+  }, {
+    key: "runVar",
+    value: function runVar() {
+      var myVariable = this.state.myVar.toString().trim().toLowerCase();
+      var ending = false;
+
+      if (myVariable.includes('<h') && myVariable.includes('</h')) {
+        var userVarArray = myVariable.split('>');
+        var userVar = userVarArray[1];
+        if (userVar.includes("hello") && userVar.includes("world")) if (userVar) {
+          // they did it
+          ending = true;
+        }
+      }
+
+      createEnding2(ending);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return (/*#__PURE__*/React.createElement("div", {
+          id: "workspace"
+        }, /*#__PURE__*/React.createElement("input", {
+          id: "answer",
+          type: "text",
+          value: this.state.myVar,
+          onChange: this.handleVarChange
+        }), /*#__PURE__*/React.createElement("button", {
+          onClick: this.runVar
+        }, "Run Code"))
+      );
+    }
+  }]);
+
+  return IntroUser;
+}(React.Component);
+
+var Ending = function Ending(end) {
+  var text = '';
+
+  if (end.end) {
+    text = 'You did it!';
+  } else {
+    text = 'Try Again!';
+  }
+
+  return (/*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h3", null, text))
+  );
+};
+
+var createEnding2 = function createEnding2(ending) {
+  ReactDOM.render( /*#__PURE__*/React.createElement(Ending, {
+    end: ending
+  }), document.querySelector("#ending"));
+};
+
+var createLevel2 = function createLevel2() {
   ReactDOM.render( /*#__PURE__*/React.createElement(Intro, null), document.querySelector("#intro"));
   ReactDOM.render( /*#__PURE__*/React.createElement(IntroUser, null), document.querySelector("#level"));
 };
@@ -311,19 +424,7 @@ var LevelWindow = function LevelWindow() {
       className: "levelLink"
     }, /*#__PURE__*/React.createElement("a", {
       href: "/level1"
-    }, "Level 1")), /*#__PURE__*/React.createElement("div", {
-      className: "levelLink"
-    }, /*#__PURE__*/React.createElement("a", {
-      href: "/level2"
-    }, "Level 2")), /*#__PURE__*/React.createElement("div", {
-      className: "levelLink"
-    }, /*#__PURE__*/React.createElement("a", {
-      href: "/level3"
-    }, "Level 3")), /*#__PURE__*/React.createElement("div", {
-      className: "levelLink"
-    }, /*#__PURE__*/React.createElement("a", {
-      href: "/level4"
-    }, "Level 4")))
+    }, "Level 1")))
   );
 };
 
@@ -334,8 +435,8 @@ var PlatinumHolder = function PlatinumHolder() {
   }, /*#__PURE__*/React.createElement("div", {
     "class": "levelLink"
   }, /*#__PURE__*/React.createElement("a", {
-    href: "/level5"
-  }, "Level 5")));
+    href: "/level2"
+  }, "Level 2")));
 };
 
 var handleUpgrade = function handleUpgrade(e) {
@@ -444,7 +545,9 @@ var setup = function setup(csrf
       );
     } // if any of the levels, render said level
     else if (window.location.pathname === '/level1') {
-        createLevel();
+        createLevel1();
+      } else if (window.location.pathname === '/level2') {
+        createLevel2();
       } // otherwise, not recognized pathname so render 404 page
       else {
           // 404 page not found

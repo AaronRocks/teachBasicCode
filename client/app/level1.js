@@ -82,7 +82,7 @@ const createEnding = (ending) => {
     );
 }
 
-const createLevel = () =>{
+const createLevel1 = () =>{
     ReactDOM.render(
         <Intro />,
         document.querySelector("#intro")

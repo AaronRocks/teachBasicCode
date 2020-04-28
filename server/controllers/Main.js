@@ -32,7 +32,13 @@ const level1 = (request, response) => {
   return res.render('level1');
 };
 
+const level2 = (request, response) => {
+  const res = response;
+  return res.render('level2');
+};
+
 module.exports.mainPage = mainPage;
 module.exports.changePassPage = changePassPage;
 module.exports.notFound = notFound;
 module.exports.level1 = level1;
+module.exports.level2 = level2;
